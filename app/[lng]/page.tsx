@@ -15,8 +15,8 @@ export default function Home({ params: { lng } }: IProps) {
     <main className="flex flex-col items-center px-4">
       <Intro lng={lng} />
       <SectionDivider />
-      <About />
-      <Projects />
+      <About lng={lng} />
+      <Projects lng={lng} />
       <Skills />
       <Experience />
       <Contact />
