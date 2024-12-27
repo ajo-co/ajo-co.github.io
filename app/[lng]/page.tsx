@@ -23,7 +23,3 @@ export default function Home({ params: { lng } }: IProps) {
     </main>
   );
 }
-
-export async function generateStaticParams() {
-  return [{ lng: "en" }];
-}
