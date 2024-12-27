@@ -8,6 +8,7 @@ import ThemeContextProvider from "@/context/theme-context";
 import { Toaster } from "react-hot-toast";
 import { dir } from "i18next";
 import LanguageSwitch from "@/components/language-switch";
+import { languages } from "../i18n/settings";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,6 +16,10 @@ export const metadata = {
   title: "Ricardo | Personal Portfolio",
   description: "Ricardo is a full-stack developer with 8 years of experience.",
 };
+
+export async function generateStaticParams() {
+  return languages.map((lng) => ({ lng }));
+}
 
 export default function RootLayout({
   children,

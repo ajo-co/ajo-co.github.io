@@ -50,27 +50,36 @@ export const links = [
 
 export const experiencesData = [
   {
-    title: "Graduated bootcamp",
-    location: "Miami, FL",
-    description: "I graduated after 6 months of studying. I immediately found a job as a front-end developer.",
+    title: "Fullstack Developer",
+    location: "Monir Co. (Kermanshah)",
+    description:
+      "was a full stack developer at this company, where I played a role in the development of accounting applications and adbased platforms (similar to Divar), among others.",
     icon: React.createElement(LuGraduationCap),
-    date: "2019",
+    date: "2017 - 2019",
   },
   {
-    title: "Front-End Developer",
-    location: "Orlando, FL",
+    title: "CTO and Full Stack Developer",
+    location: "Diyar Ryan Borna (Khorramabad)",
     description:
-      "I worked as a front-end developer for 2 years in 1 job and 1 year in another job. I also upskilled to the full stack.",
+      "I was the technical team lead and chairman of the board of the company, where we designed management systems and GIS systems, as well as several news and e-commerce websites using leading technologies.",
     icon: React.createElement(CgWorkAlt),
     date: "2019 - 2021",
   },
   {
-    title: "Full-Stack Developer",
-    location: "Houston, TX",
+    title: "Backend Team Lead",
+    location: "Arta Mehr Artan (Khorramabad)",
     description:
-      "I'm now a full-stack developer working as a freelancer. My stack includes React, Next.js, TypeScript, Tailwind, Prisma and MongoDB. I'm open to full-time opportunities.",
+      "I was the technical team lead of the group, where we designed management and national systems, as well as several ecommerce products using leading technologies. In this field, we conducted research and implementation regarding various control and monitoring systems.",
     icon: React.createElement(FaReact),
-    date: "2021 - present",
+    date: "2021",
+  },
+  {
+    title: "Backend Team Lead",
+    location: "Arta Mehr Artan (Khorramabad)",
+    description:
+      "I was the technical team lead of the group, where we designed management and national systems, as well as several ecommerce products using leading technologies. In this field, we conducted research and implementation regarding various control and monitoring systems.",
+    icon: React.createElement(FaReact),
+    date: "2021",
   },
 ] as const;
 
