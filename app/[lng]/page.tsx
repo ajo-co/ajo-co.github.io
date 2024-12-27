@@ -17,7 +17,7 @@ export default function Home({ params: { lng } }: IProps) {
       <SectionDivider />
       <About lng={lng} />
       <Projects lng={lng} />
-      <Skills />
+      <Skills lng={lng} />
       <Experience />
       <Contact />
     </main>

@@ -1,7 +1,22 @@
 import React from "react";
 import { CgWorkAlt } from "react-icons/cg";
-import { FaReact } from "react-icons/fa";
+import { FaReact, FaCss3Alt, FaHtml5, FaVuejs, FaNodeJs, FaGitAlt, FaPython } from "react-icons/fa";
+import {
+  SiTailwindcss,
+  SiPrisma,
+  SiMongodb,
+  SiRedux,
+  SiApollographql,
+  SiExpress,
+  SiPostgresql,
+  SiDjango,
+} from "react-icons/si";
+import { GrGraphQl } from "react-icons/gr";
 import { LuGraduationCap } from "react-icons/lu";
+import { IoLogoJavascript } from "react-icons/io5";
+import { BiLogoTypescript } from "react-icons/bi";
+import { TbBrandNextjs, TbBrandFramerMotion } from "react-icons/tb";
+
 import corpcommentImg from "@/public/corpcomment.png";
 import rmtdevImg from "@/public/rmtdev.png";
 import wordanalyticsImg from "@/public/wordanalytics.png";
@@ -37,8 +52,7 @@ export const experiencesData = [
   {
     title: "Graduated bootcamp",
     location: "Miami, FL",
-    description:
-      "I graduated after 6 months of studying. I immediately found a job as a front-end developer.",
+    description: "I graduated after 6 months of studying. I immediately found a job as a front-end developer.",
     icon: React.createElement(LuGraduationCap),
     date: "2019",
   },
@@ -85,23 +99,105 @@ export const projectsData = [
 ] as const;
 
 export const skillsData = [
-  "HTML",
-  "CSS",
-  "JavaScript",
-  "TypeScript",
-  "React",
-  "Next.js",
-  "Node.js",
-  "Git",
-  "Tailwind",
-  "Prisma",
-  "MongoDB",
-  "Redux",
-  "GraphQL",
-  "Apollo",
-  "Express",
-  "PostgreSQL",
-  "Python",
-  "Django",
-  "Framer Motion",
-] as const;
+  {
+    title: "HTML5",
+    id: 1,
+    Icon: FaHtml5,
+  },
+  {
+    title: "CSS3",
+    id: 2,
+    Icon: FaCss3Alt,
+  },
+  {
+    title: "JavaScript",
+    id: 3,
+    Icon: IoLogoJavascript,
+  },
+  {
+    title: "TypeScript",
+    id: 4,
+    Icon: BiLogoTypescript,
+  },
+  {
+    title: "React",
+    id: 5,
+    Icon: FaReact,
+  },
+  {
+    title: "Next.js",
+    id: 6,
+    Icon: TbBrandNextjs,
+  },
+  {
+    title: "Vue.js",
+    id: 21,
+    Icon: FaVuejs,
+  },
+  {
+    title: "Node.js",
+    id: 7,
+    Icon: FaNodeJs,
+  },
+  {
+    title: "Git",
+    id: 8,
+    Icon: FaGitAlt,
+  },
+  {
+    title: "Tailwind",
+    id: 9,
+    Icon: SiTailwindcss,
+  },
+  {
+    title: "Prisma",
+    id: 10,
+    Icon: SiPrisma,
+  },
+  {
+    title: "MongoDB",
+    id: 11,
+    Icon: SiMongodb,
+  },
+  {
+    title: "Redux",
+    id: 12,
+    Icon: SiRedux,
+  },
+  {
+    title: "GraphQL",
+    id: 13,
+    Icon: GrGraphQl,
+  },
+
+  {
+    title: "Apollo",
+    id: 15,
+    Icon: SiApollographql,
+  },
+  {
+    title: "Express",
+    id: 16,
+    Icon: SiExpress,
+  },
+  {
+    title: "PostgreSQL",
+    id: 17,
+    Icon: SiPostgresql,
+  },
+  {
+    title: "Python",
+    id: 18,
+    Icon: FaPython,
+  },
+  {
+    title: "Django",
+    id: 19,
+    Icon: SiDjango,
+  },
+  {
+    title: "Framer Motion",
+    id: 20,
+    Icon: TbBrandFramerMotion,
+  },
+];

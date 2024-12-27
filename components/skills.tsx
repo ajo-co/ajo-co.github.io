@@ -5,6 +5,7 @@ import SectionHeading from "./section-heading";
 import { skillsData } from "@/lib/data";
 import { useSectionInView } from "@/lib/hooks";
 import { motion } from "framer-motion";
+import { useTranslation } from "@/app/i18n/client";
 
 const fadeInAnimationVariants = {
   initial: {
@@ -20,21 +21,19 @@ const fadeInAnimationVariants = {
   }),
 };
 
-export default function Skills() {
+export default function Skills({ lng }: { lng: string }) {
   const { ref } = useSectionInView("Skills");
+  const { t } = useTranslation(lng, "home");
 
   return (
-    <section
-      id="skills"
-      ref={ref}
-      className="mb-28 max-w-[53rem] scroll-mt-28 text-center sm:mb-40"
-    >
-      <SectionHeading>My skills</SectionHeading>
+    <section id="skills" ref={ref} className="mb-28 max-w-[53rem] scroll-mt-28 text-center sm:mb-40">
+      <SectionHeading>{t("skill_title")}</SectionHeading>
       <ul className="flex flex-wrap justify-center gap-2 text-lg text-gray-800">
         {skillsData.map((skill, index) => (
           <motion.li
-            className="bg-white borderBlack rounded-xl px-5 py-3 dark:bg-white/10 dark:text-white/80"
-            key={index}
+            className="bg-white borderBlack rounded-xl px-5 py-3 flex items-center gap-1 dark:bg-white/10 dark:text-white/80"
+            dir="ltr"
+            key={skill.id}
             variants={fadeInAnimationVariants}
             initial="initial"
             whileInView="animate"
@@ -43,7 +42,8 @@ export default function Skills() {
             }}
             custom={index}
           >
-            {skill}
+            {skill.Icon ? <skill.Icon /> : <></>}
+            {skill.title}
           </motion.li>
         ))}
       </ul>
