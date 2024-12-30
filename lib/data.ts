@@ -23,27 +23,35 @@ import wordanalyticsImg from "@/public/wordanalytics.png";
 
 export const links = [
   {
-    name: "Home",
+    name: "home",
     hash: "#home",
   },
   {
-    name: "About",
+    name: "about",
     hash: "#about",
   },
   {
-    name: "Projects",
+    name: "projects",
     hash: "#projects",
   },
   {
-    name: "Skills",
+    name: "skills",
     hash: "#skills",
   },
   {
-    name: "Experience",
+    name: "experience",
     hash: "#experience",
   },
   {
-    name: "Contact",
+    name: "team",
+    hash: "#team",
+  },
+  {
+    name: "project_request",
+    hash: "#projectRequest",
+  },
+  {
+    name: "contact",
     hash: "#contact",
   },
 ] as const;
@@ -210,3 +218,71 @@ export const skillsData = [
     Icon: TbBrandFramerMotion,
   },
 ];
+
+const data = {
+  iconUrl: "",
+  title: "",
+  subTitle: "",
+  linkdinUrl: "",
+  githubUrl: "",
+  youtubeUrl: "",
+  telegramUrl: "",
+  xUrl: "",
+  contactText: "",
+  footerText: "",
+  phoneNumber: "",
+  phoneNumber2: "",
+  email: "",
+  skills: [
+    {
+      title: "Framer Motion",
+      id: 20,
+      Icon: "",
+    },
+  ],
+  aboutText: "",
+  projects: [
+    {
+      title: "Corp Comment",
+      description:
+        "I worked as a full-stack developer on this startup project for 2 years. Users can give public feedback to companies.",
+      tags: ["React", "Next.js", "MongoDB", "Tailwind", "Prisma"],
+      imageUrl: "",
+    },
+  ],
+  experiences: [
+    {
+      title: "Fullstack Developer",
+      location: "Monir Co. (Kermanshah)",
+      description:
+        "was a full stack developer at this company, where I played a role in the development of accounting applications and  platforms (similar to Divar), among others.",
+      icon: "",
+      date: "2017 - 2019",
+    },
+  ],
+  form: {
+    enabelName: true,
+    enabelEmail: true,
+    enabelPhoneNumber: true,
+    enabelCountry: true,
+    enabelProvince: true,
+    enabelCity: true,
+    enabelCommunicationWay: true,
+    enabelProjectCategory: true,
+    enabelTitleRequest: true,
+    enabelAdditionalDescription: true,
+    enabelUpload: true,
+    communicationWayData: [
+      {
+        id: 1,
+        title: "",
+      },
+    ],
+    projectCategory: [
+      {
+        id: 1,
+        title: "",
+      },
+    ],
+  },
+};

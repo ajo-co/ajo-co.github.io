@@ -6,18 +6,22 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { BsArrowRight, BsLinkedin } from "react-icons/bs";
 import { HiDownload } from "react-icons/hi";
-import { FaGithubSquare } from "react-icons/fa";
+import { FaGithubSquare, FaYoutube, FaTelegram } from "react-icons/fa";
+import { RiTwitterXFill } from "react-icons/ri";
+
 import { useSectionInView } from "@/lib/hooks";
 import { useActiveSectionContext } from "@/context/active-section-context";
 import { useTranslation } from "@/app/i18n/client";
-import logo from "@/assets/logo.png";
+import logo from "@/assets/logo-last.jpg";
+import { homeDataType } from "@/lib/types";
 
 interface IProps {
   lng: string;
+  data?: homeDataType | null;
 }
 
-export default function Intro({ lng }: IProps) {
-  const { ref } = useSectionInView("Home", 0.5);
+export default function Intro({ lng, data }: IProps) {
+  const { ref } = useSectionInView("home", 0.5);
   const { setActiveSection, setTimeOfLastClick } = useActiveSectionContext();
 
   const { t } = useTranslation(lng, "home");
@@ -36,7 +40,7 @@ export default function Intro({ lng }: IProps) {
             className="flex items-center flex-col justify-center"
           >
             <Image
-              src={logo}
+              src={data?.logoUrl || logo.src}
               alt="Ricardo portrait"
               width="210"
               height="210"
@@ -44,7 +48,7 @@ export default function Intro({ lng }: IProps) {
               priority={true}
               className="h-[180px] w-[180px] rounded-full object-cover border-[0.35rem] border-white shadow-xl"
             />
-            <h1 className="text-[40px] rtl:font-sans font-black">FIDAAR CORP</h1>
+            <h1 className="text-[40px] font-black font-vazir">{data?.title}</h1>
           </motion.div>
         </div>
       </div>
@@ -54,7 +58,7 @@ export default function Intro({ lng }: IProps) {
         initial={{ opacity: 0, y: 100 }}
         animate={{ opacity: 1, y: 0 }}
       >
-        <span className="font-bold">{t("subTitle")}</span>
+        <span className="font-bold font-vazir">{data?.subTitle}</span>
       </motion.h1>
 
       <motion.div
@@ -69,11 +73,11 @@ export default function Intro({ lng }: IProps) {
           href="#contact"
           className="group bg-gray-900 text-white px-7 py-3 flex items-center gap-2 rounded-full outline-none focus:scale-110 hover:scale-110 hover:bg-gray-950 active:scale-105 transition"
           onClick={() => {
-            setActiveSection("Contact");
+            setActiveSection("contact");
             setTimeOfLastClick(Date.now());
           }}
         >
-          تماس با ما <BsArrowRight className="opacity-70 group-hover:translate-x-1 transition" />
+          {t("contact_us")} <BsArrowRight className="opacity-70 group-hover:translate-x-1 transition" />
         </Link>
 
         {/* <a
@@ -84,21 +88,55 @@ export default function Intro({ lng }: IProps) {
           Download CV <HiDownload className="opacity-60 group-hover:translate-y-1 transition" />
         </a> */}
 
-        <a
-          className="bg-white p-4 text-gray-700 hover:text-gray-950 flex items-center gap-2 rounded-full focus:scale-[1.15] hover:scale-[1.15] active:scale-105 transition cursor-pointer borderBlack dark:bg-white/10 dark:text-white/60"
-          href="https://linkedin.com"
-          target="_blank"
-        >
-          <BsLinkedin />
-        </a>
+        {data?.linkdinUrl && (
+          <a
+            className="bg-white p-4 text-gray-700 hover:text-gray-950 flex items-center gap-2 rounded-full focus:scale-[1.15] hover:scale-[1.15] active:scale-105 transition cursor-pointer borderBlack dark:bg-white/10 dark:text-white/60"
+            href={data?.linkdinUrl}
+            target="_blank"
+          >
+            <BsLinkedin />
+          </a>
+        )}
 
-        <a
-          className="bg-white p-4 text-gray-700 flex items-center gap-2 text-[1.35rem] rounded-full focus:scale-[1.15] hover:scale-[1.15] hover:text-gray-950 active:scale-105 transition cursor-pointer borderBlack dark:bg-white/10 dark:text-white/60"
-          href="https://github.com"
-          target="_blank"
-        >
-          <FaGithubSquare />
-        </a>
+        {data?.githubUrl && (
+          <a
+            className="bg-white p-4 text-gray-700 flex items-center gap-2 text-[1.35rem] rounded-full focus:scale-[1.15] hover:scale-[1.15] hover:text-gray-950 active:scale-105 transition cursor-pointer borderBlack dark:bg-white/10 dark:text-white/60"
+            href={data?.githubUrl}
+            target="_blank"
+          >
+            <FaGithubSquare />
+          </a>
+        )}
+
+        {data?.youtubeUrl && (
+          <a
+            className="bg-white p-4 text-gray-700 flex items-center gap-2 text-[1.35rem] rounded-full focus:scale-[1.15] hover:scale-[1.15] hover:text-gray-950 active:scale-105 transition cursor-pointer borderBlack dark:bg-white/10 dark:text-white/60"
+            href={data?.youtubeUrl}
+            target="_blank"
+          >
+            <FaYoutube />
+          </a>
+        )}
+
+        {data?.xUrl && (
+          <a
+            className="bg-white p-4 text-gray-700 flex items-center gap-2 text-[1.35rem] rounded-full focus:scale-[1.15] hover:scale-[1.15] hover:text-gray-950 active:scale-105 transition cursor-pointer borderBlack dark:bg-white/10 dark:text-white/60"
+            href={data?.xUrl}
+            target="_blank"
+          >
+            <RiTwitterXFill />
+          </a>
+        )}
+
+        {data?.telegramUrl && (
+          <a
+            className="bg-white p-4 text-gray-700 flex items-center gap-2 text-[1.35rem] rounded-full focus:scale-[1.15] hover:scale-[1.15] hover:text-gray-950 active:scale-105 transition cursor-pointer borderBlack dark:bg-white/10 dark:text-white/60"
+            href={data?.telegramUrl}
+            target="_blank"
+          >
+            <FaTelegram />
+          </a>
+        )}
       </motion.div>
     </section>
   );

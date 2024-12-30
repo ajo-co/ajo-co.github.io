@@ -5,9 +5,14 @@ import SectionHeading from "./section-heading";
 import { motion } from "framer-motion";
 import { useSectionInView } from "@/lib/hooks";
 import { useTranslation } from "@/app/i18n/client";
+import { homeDataType } from "@/lib/types";
 
-export default function About({ lng }: { lng: string }) {
-  const { ref } = useSectionInView("About");
+interface IProps {
+  lng: string;
+  data?: homeDataType | null;
+}
+export default function About({ lng, data }: IProps) {
+  const { ref } = useSectionInView("about");
   const { t } = useTranslation(lng, "home");
 
   return (
@@ -20,14 +25,14 @@ export default function About({ lng }: { lng: string }) {
       id="about"
     >
       <SectionHeading>{t("about_us_title")}</SectionHeading>
-      <p className="mb-3">{t("about_us_text")}</p>
-      <h3 className="text-lg font-bold">{t("about_us_text_head")}</h3>
+      <p className="mb-3">{data?.aboutText}</p>
+      {/* <h3 className="text-lg font-bold">{t("about_us_text_head")}</h3>
       <p className="flex flex-col">
         <span className="italic">{t("about_us_text_option_one")}</span>
         <span className="italic">{t("about_us_text_option_two")}</span>
         <span className="italic">{t("about_us_text_option_three")}</span>
       </p>
-      <p>{t("about_us_text_final")}</p>
+      <p>{t("about_us_text_final")}</p> */}
     </motion.section>
   );
 }

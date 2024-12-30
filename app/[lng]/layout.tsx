@@ -9,12 +9,14 @@ import { Toaster } from "react-hot-toast";
 import { dir } from "i18next";
 import LanguageSwitch from "@/components/language-switch";
 import { languages } from "../i18n/settings";
+import { Suspense } from "react";
+import Loader from "@/components/loader";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Ricardo | Personal Portfolio",
-  description: "Ricardo is a full-stack developer with 8 years of experience.",
+  title: "Fedaar",
+  description: "Fedaar Corp",
 };
 
 export async function generateStaticParams() {
@@ -44,13 +46,13 @@ export default function RootLayout({
 
         <ThemeContextProvider>
           <ActiveSectionContextProvider>
-            <Header />
-            {children}
-            <Footer />
-
-            <Toaster position="top-right" />
-            <ThemeSwitch />
-            <LanguageSwitch lng={lng} />
+            <Suspense fallback={<Loader loading={true} />}>
+              <Header lng={lng} />
+              {children}
+              <Toaster position="top-right" />
+              <ThemeSwitch />
+              <LanguageSwitch lng={lng} />
+            </Suspense>
           </ActiveSectionContextProvider>
         </ThemeContextProvider>
       </body>

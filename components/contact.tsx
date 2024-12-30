@@ -8,10 +8,17 @@ import { sendEmail } from "@/actions/sendEmail";
 // import dynamic from "next/dynamic";
 
 import SubmitBtn from "./submit-btn";
+import { useTranslation } from "@/app/i18n/client";
+import { homeDataType } from "@/lib/types";
+import { ErrorMessage, Formik } from "formik";
+import { ValidationContactForm } from "@/lib/validations";
+import TextInput from "./textInput";
+import TextAreaInput from "./textarea";
 import toast from "react-hot-toast";
 
-export default function Contact() {
-  const { ref } = useSectionInView("Contact");
+export default function Contact({ lng, data }: { lng: string; data: homeDataType | null }) {
+  const { ref } = useSectionInView("contact");
+  const { t } = useTranslation(lng, "home");
 
   return (
     <motion.section
@@ -31,46 +38,63 @@ export default function Contact() {
         once: true,
       }}
     >
-      <SectionHeading>Contact me</SectionHeading>
+      <SectionHeading>{t("contact_us")}</SectionHeading>
 
-      <p className="text-gray-700 -mt-6 dark:text-white/80">
-        Please contact me directly at{" "}
-        <a className="underline" href="mailto:example@gmail.com">
-          example@gmail.com
-        </a>{" "}
-        or through this form.
-      </p>
+      <p className="text-gray-700 -mt-6 dark:text-white/80">{t("contact_us_text", { EMAIL: data?.email })}</p>
 
-      <form
-        className="mt-10 flex flex-col dark:text-black"
-        action={async (formData) => {
-          // const { data, error } = await sendEmail(formData);
-
-          // if (error) {
-          //   toast.error(error);
-          //   return;
-          // }
-
+      <Formik
+        initialValues={{ email: "", message: "" }}
+        validationSchema={ValidationContactForm}
+        onSubmit={async (values, { setSubmitting, resetForm }) => {
+          await setSubmitting(true);
+          await sendEmail(values);
+          await setSubmitting(false);
           toast.success("Email sent successfully!");
+          resetForm();
         }}
       >
-        <input
-          className="h-14 px-4 rounded-lg borderBlack dark:bg-white dark:bg-opacity-80 dark:focus:bg-opacity-100 transition-all dark:outline-none"
-          name="senderEmail"
-          type="email"
-          required
-          maxLength={500}
-          placeholder="Your email"
-        />
-        <textarea
-          className="h-52 my-3 rounded-lg borderBlack p-4 dark:bg-white dark:bg-opacity-80 dark:focus:bg-opacity-100 transition-all dark:outline-none"
-          name="message"
-          placeholder="Your message"
-          required
-          maxLength={5000}
-        />
-        <SubmitBtn />
-      </form>
+        {({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
+          <form className="mt-10 flex flex-col dark:text-black">
+            <div className="w-full">
+              <TextInput
+                className="h-14 px-4 rounded-lg borderBlack dark:bg-white dark:bg-opacity-80 dark:focus:bg-opacity-100 transition-all dark:outline-none"
+                name="email"
+                value={values.email}
+                maxLength={500}
+                placeholder={t("contact_email_hint")}
+                onChange={handleChange}
+              />
+              {touched.email && (
+                <ErrorMessage
+                  name="email"
+                  render={(text) => (
+                    <p className="text-red-600 text-xs pt-2 w-full text-left rtl:text-right">{t(text)}</p>
+                  )}
+                />
+              )}
+            </div>
+            <div className="w-full mb-4">
+              <textarea
+                className="h-52 w-full mt-3 rounded-lg borderBlack p-4 dark:bg-white dark:bg-opacity-80 dark:focus:bg-opacity-100 transition-all dark:outline-none"
+                name="message"
+                value={values.message}
+                placeholder={t("contact_message_hint")}
+                maxLength={1000}
+                onChange={handleChange}
+              />
+              {touched.message && (
+                <ErrorMessage
+                  name="message"
+                  render={(text) => <p className="text-red-600 text-xs w-full text-left rtl:text-right">{t(text)}</p>}
+                />
+              )}
+            </div>
+            <SubmitBtn type="button" onClick={() => handleSubmit()} loading={isSubmitting}>
+              {t("send_btn")}
+            </SubmitBtn>
+          </form>
+        )}
+      </Formik>
     </motion.section>
   );
 }

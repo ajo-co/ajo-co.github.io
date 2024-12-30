@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url(../assets/fonts/style.css);
+
 html {
   --line-color: #e5e7eb;
 }
@@ -12,4 +14,8 @@ html.dark {
 
 .borderBlack {
   @apply border border-black/10;
+}
+
+body {
+  font-family: Vazirmatn;
 }
