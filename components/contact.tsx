@@ -47,10 +47,10 @@ export default function Contact({ lng, data }: { lng: string; data: homeDataType
       <Formik
         initialValues={{ email: "", message: "" }}
         validationSchema={ValidationContactForm}
-        onSubmit={async (values, { setSubmitting, resetForm }) => {
-          await setSubmitting(true);
-          await sendEmail(values);
-          await setSubmitting(false);
+        onSubmit={(values, { setSubmitting, resetForm }) => {
+          setSubmitting(true);
+          sendEmail(values);
+          setSubmitting(false);
           toast.success("Email sent successfully!");
           resetForm();
         }}

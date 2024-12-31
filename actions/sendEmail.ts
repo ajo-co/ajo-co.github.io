@@ -2,7 +2,6 @@
 // import ContactFormEmail from "@/email/contact-form-email";
 import nodemailer from "nodemailer";
 // const resend = new Resend(process.env.RESEND_API_KEY);
-import toast from "react-hot-toast";
 
 const transporter = nodemailer.createTransport({
   host: process.env.NEXT_PUBLIC_EMAIL_HOST,
@@ -14,7 +13,7 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-export async function sendEmail({ email, message }: { email: string; message: string }) {
+export const sendEmail = async ({ email, message }: { email: string; message: string }) => {
   // send mail with defined transport object
   try {
     const info = await transporter.sendMail({
@@ -27,7 +26,7 @@ export async function sendEmail({ email, message }: { email: string; message: st
     console.log("Message sent: %s", info);
   } catch (error) {}
   // Message sent: <d786aa62-4e0a-070a-47ed-0b0666549519@ethereal.email>
-}
+};
 
 // export const sendEmail = async (formData: FormData) => {
 //   const senderEmail = formData.get("senderEmail");
