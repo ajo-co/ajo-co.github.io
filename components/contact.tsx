@@ -20,6 +20,8 @@ export default function Contact({ lng, data }: { lng: string; data: homeDataType
   const { ref } = useSectionInView("contact");
   const { t } = useTranslation(lng, "home");
 
+  console.log();
+
   return (
     <motion.section
       id="contact"
