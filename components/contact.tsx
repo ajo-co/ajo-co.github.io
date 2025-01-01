@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import SectionHeading from "./section-heading";
 import { motion } from "framer-motion";
 import { useSectionInView } from "@/lib/hooks";
@@ -13,12 +13,32 @@ import { homeDataType } from "@/lib/types";
 import { ErrorMessage, Formik } from "formik";
 import { ValidationContactForm } from "@/lib/validations";
 import TextInput from "./textInput";
-import TextAreaInput from "./textarea";
 import toast from "react-hot-toast";
 
 export default function Contact({ lng, data }: { lng: string; data: homeDataType | null }) {
   const { ref } = useSectionInView("contact");
   const { t } = useTranslation(lng, "home");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async (values: {}) => {
+    setIsSubmitting(true);
+    try {
+      const res = await fetch(`/${lng}/api/sendEmail`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...values, to: `reza1880z2@gmail.com, ${process.env.NEXT_PUBLIC_EMAIL_HOST_USER}` }),
+      });
+      const data = await res.json();
+      toast.success(t("email_success_message"));
+
+      console.log(data);
+    } catch (error) {
+      console.error("Error sending email:", error);
+      toast.success("Error sending email");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <motion.section
@@ -47,13 +67,12 @@ export default function Contact({ lng, data }: { lng: string; data: homeDataType
         validationSchema={ValidationContactForm}
         onSubmit={(values, { setSubmitting, resetForm }) => {
           setSubmitting(true);
-          sendEmail(values);
+          handleSubmit(values);
           setSubmitting(false);
-          toast.success("Email sent successfully!");
           resetForm();
         }}
       >
-        {({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
+        {({ values, errors, touched, handleChange, handleBlur, handleSubmit }) => (
           <form className="mt-10 flex flex-col dark:text-black">
             <div className="w-full">
               <TextInput
@@ -75,7 +94,7 @@ export default function Contact({ lng, data }: { lng: string; data: homeDataType
             </div>
             <div className="w-full mb-4">
               <textarea
-                className="h-52 w-full mt-3 rounded-lg borderBlack p-4 dark:bg-white dark:bg-opacity-80 dark:focus:bg-opacity-100 transition-all dark:outline-none"
+                className="h-52 w-full mt-3 rounded-lg borderBlack p-4 dark:bg-white dark:bg-opacity-80 dark:focus:bg-opacity-100 transition-all dark:outline-none text-sm"
                 name="message"
                 value={values.message}
                 placeholder={t("contact_message_hint")}

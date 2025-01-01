@@ -44,5 +44,6 @@
   "contact_email_req": "ایمیل اجباری می باشد",
   "contact_email_valid": "ایمیل را بصورت درست وارد کنید",
   "contact_message_req": "پیام اجباری می باشد",
-  "contact_message_min_valid": "حداقل تعداد کاراکتر پیام: 10"
+  "contact_message_min_valid": "حداقل تعداد کاراکتر پیام: 10",
+  "email_success_message": "ایمیل با موفقیت ارسال شد!"
 }

@@ -44,5 +44,6 @@
   "contact_email_req": "Email is Required",
   "contact_email_valid": "Enter correct email",
   "contact_message_req": "Message is Required",
-  "contact_message_min_valid": "Message minimum char is: 10"
+  "contact_message_min_valid": "Message minimum char is: 10",
+  "email_success_message": "Email sent successfully!"
 }
