@@ -4,7 +4,7 @@ import React from "react";
 import SectionHeading from "./section-heading";
 import { motion } from "framer-motion";
 import { useSectionInView } from "@/lib/hooks";
-import { sendEmail } from "@/actions/sendEmail";
+// import { sendEmail } from "@/actions/sendEmail";
 // import dynamic from "next/dynamic";
 
 import SubmitBtn from "./submit-btn";
@@ -49,7 +49,7 @@ export default function Contact({ lng, data }: { lng: string; data: homeDataType
         validationSchema={ValidationContactForm}
         onSubmit={(values, { setSubmitting, resetForm }) => {
           setSubmitting(true);
-          sendEmail(values);
+          // sendEmail(values);
           setSubmitting(false);
           toast.success("Email sent successfully!");
           resetForm();
