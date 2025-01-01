@@ -52,7 +52,7 @@ export default function Home({ params: { lng } }: IProps) {
       <Projects lng={lng} data={data} />
       <Skills lng={lng} data={data} />
       <Experience lng={lng} data={data} />
-      <ProjectRequest lng={lng} />
+      <ProjectRequest lng={lng} data={data} />
       <Contact lng={lng} data={data} />
       <Footer lng={lng} data={data} />
     </main>

@@ -48,13 +48,40 @@ export interface homeDataType {
     enabelTitleRequest: boolean;
     enabelAdditionalDescription: boolean;
     enabelUpload: boolean;
-    communicationWayData: {
-      id: number;
-      title: string;
-    }[];
-    projectCategory: {
-      id: number;
-      title: string;
-    }[];
+    communicationWayData: itemWhitTitle[];
+    projectCategory: itemWhitTitle[];
   };
+  projectFormDetail: {
+    formConfig: {
+      nameConfig: fieldType;
+      emailConfig: fieldType;
+      phoneNumberConfig: fieldType;
+      countryConfig: fieldType;
+      provinceConfig: fieldType;
+      cityConfig: fieldType;
+      communicationWayConfig: fieldType;
+      projectCategoryConfig: fieldType;
+      projectPackageConfig: fieldType;
+      titleRequestConfig: fieldType;
+      additionalDescriptionConfig: fieldType;
+      uploadConfig: fieldType;
+    };
+    formQuestions: {
+      communicationWayData: itemWhitTitle[];
+      projectCategory: { cost: number; id: number; title: string }[];
+      projectPackage: itemWhitTitle & { cost: number; relatedQuestionId: number; id: number; title: string }[];
+      // ["relatedQuestion1"]: [];
+    };
+  };
+}
+
+interface fieldType {
+  type: "text";
+  required: true;
+  show: true;
+}
+
+interface itemWhitTitle {
+  id: number;
+  title: string;
 }
