@@ -1,4 +1,4 @@
-"use server";
+// "use server";
 // import ContactFormEmail from "@/email/contact-form-email";
 import nodemailer from "nodemailer";
 // const resend = new Resend(process.env.RESEND_API_KEY);
