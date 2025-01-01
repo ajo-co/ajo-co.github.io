@@ -34,7 +34,7 @@ export default function Contact({ lng, data }: { lng: string; data: homeDataType
       console.log(data);
     } catch (error) {
       console.error("Error sending email:", error);
-      toast.success("Error sending email");
+      toast.error("Error sending email");
     } finally {
       setIsSubmitting(false);
     }
