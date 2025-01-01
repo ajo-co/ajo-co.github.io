@@ -3,7 +3,7 @@ import nodemailer from "nodemailer";
 
 export async function POST(req: NextRequest) {
   try {
-    const { to, cc, email, message } = await req.json();
+    const { to, email, message } = await req.json();
     const transporter = nodemailer.createTransport({
       host: process.env.NEXT_PUBLIC_EMAIL_HOST,
       port: Number(process.env.NEXT_PUBLIC_EMAIL_PORT),

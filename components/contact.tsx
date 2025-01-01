@@ -23,7 +23,7 @@ export default function Contact({ lng, data }: { lng: string; data: homeDataType
   const handleSubmit = async (values: {}) => {
     setIsSubmitting(true);
     try {
-      const res = await fetch(`/${lng}/api/sendEmail`, {
+      const res = await fetch(`/api/sendEmail`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ...values, to: `reza1880z2@gmail.com, ${process.env.NEXT_PUBLIC_EMAIL_HOST_USER}` }),
