@@ -23,6 +23,7 @@ export const sendEmail = async ({ email, message }: { email: string; message: st
       text: message, // plain text body
       html: `<b>${message}</b>`, // html body
     });
+    return info;
     console.log("Message sent: %s", info);
   } catch (error) {}
   // Message sent: <d786aa62-4e0a-070a-47ed-0b0666549519@ethereal.email>
