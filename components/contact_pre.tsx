@@ -4,8 +4,9 @@ import React, { useState } from "react";
 import SectionHeading from "./section-heading";
 import { motion } from "framer-motion";
 import { useSectionInView } from "@/lib/hooks";
+import { sendEmail } from "@/actions/sendEmail";
 // import dynamic from "next/dynamic";
-import emailjs from "@emailjs/browser";
+
 import SubmitBtn from "./submit-btn";
 import { useTranslation } from "@/app/i18n/client";
 import { homeDataType } from "@/lib/types";
@@ -19,30 +20,21 @@ export default function Contact({ lng, data }: { lng: string; data: homeDataType
   const { t } = useTranslation(lng, "home");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = async (values: { email: string; message: string }, callbak: () => void) => {
+  const handleSubmit = async (values: {}) => {
     setIsSubmitting(true);
-
     try {
-      // Initialize EmailJS with your public key
-      emailjs.init(process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!);
+      const res = await fetch(`/api/sendEmail`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...values, to: `reza1880z2@gmail.com, ${process.env.NEXT_PUBLIC_EMAIL_HOST_USER}` }),
+      });
+      const data = await res.json();
+      toast.success(t("email_success_message"));
 
-      const result = await emailjs.send(
-        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!, // Your EmailJS service ID
-        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!, // Your EmailJS template ID
-        {
-          from_email: values.email,
-          message: values.message,
-          to_email: `reza1880z2@gmail.com, ${process.env.NEXT_PUBLIC_EMAIL_HOST_USER}`, // Your recipient email
-        }
-      );
-
-      if (result.status === 200) {
-        toast.success(t("email_success_message"));
-        callbak();
-      }
+      console.log(data);
     } catch (error) {
       console.error("Error sending email:", error);
-      toast.error("Failed to send email");
+      toast.error("Error sending email");
     } finally {
       setIsSubmitting(false);
     }
@@ -75,8 +67,9 @@ export default function Contact({ lng, data }: { lng: string; data: homeDataType
         validationSchema={ValidationContactForm}
         onSubmit={(values, { setSubmitting, resetForm }) => {
           setSubmitting(true);
-          handleSubmit(values as any, () => resetForm());
+          handleSubmit(values);
           setSubmitting(false);
+          resetForm();
         }}
       >
         {({ values, errors, touched, handleChange, handleBlur, handleSubmit }) => (
@@ -101,7 +94,7 @@ export default function Contact({ lng, data }: { lng: string; data: homeDataType
             </div>
             <div className="w-full mb-4">
               <textarea
-                className="h-52 w-full mt-3 rounded-lg borderBlack p-4 dark:bg-opacity-80 dark:focus:bg-opacity-100 transition-all dark:outline-none text-sm dark:bg-transparent dark:border-white dark:text-white"
+                className="h-52 w-full mt-3 rounded-lg borderBlack p-4 dark:bg-white dark:bg-opacity-80 dark:focus:bg-opacity-100 transition-all dark:outline-none text-sm dark:bg-transparent dark:border-white dark:text-white"
                 name="message"
                 value={values.message}
                 placeholder={t("contact_message_hint")}

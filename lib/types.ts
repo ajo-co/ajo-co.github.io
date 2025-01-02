@@ -22,6 +22,12 @@ export interface homeDataType {
     Icon: string;
   }[];
   aboutText: string;
+  teamMembers: {
+    fullName: string;
+    title: string;
+    avatar: string;
+    level: string;
+  }[];
   projects: {
     title: string;
     description: string;

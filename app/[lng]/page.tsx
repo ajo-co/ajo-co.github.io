@@ -14,6 +14,7 @@ import { getErrorMessage } from "@/lib/utils";
 import { useEffect, useState } from "react";
 import { useTranslation } from "../i18n/client";
 import Footer from "@/components/footer";
+import OurTeam from "@/components/team";
 
 interface IProps {
   params: { lng: string };
@@ -52,6 +53,7 @@ export default function Home({ params: { lng } }: IProps) {
       <Projects lng={lng} data={data} />
       <Skills lng={lng} data={data} />
       <Experience lng={lng} data={data} />
+      <OurTeam lng={lng} data={data} />
       <ProjectRequest lng={lng} data={data} />
       <Contact lng={lng} data={data} />
       <Footer lng={lng} data={data} />
