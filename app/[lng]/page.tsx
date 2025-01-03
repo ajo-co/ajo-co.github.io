@@ -1,5 +1,4 @@
 "use client";
-// import { homeAction } from "@/actions/home";
 import About from "@/components/about";
 import Contact from "@/components/contact";
 import Experience from "@/components/experience";
@@ -9,54 +8,42 @@ import ProjectRequest from "@/components/projectRequest";
 import Projects from "@/components/projects";
 import SectionDivider from "@/components/section-divider";
 import Skills from "@/components/skills";
-import { homeDataType } from "@/lib/types";
-import { getErrorMessage } from "@/lib/utils";
-import { useEffect, useState } from "react";
-import { useTranslation } from "../i18n/client";
+import { useEffect } from "react";
 import Footer from "@/components/footer";
 import OurTeam from "@/components/team";
+import { useAppDispatch } from "@/store";
+import { getHomeData } from "@/store/home/actions";
+import { useReduxHomeData } from "@/store/home/hooks";
 
 interface IProps {
   params: { lng: string };
 }
 
 export default function Home({ params: { lng } }: IProps) {
-  const [data, setData] = useState<homeDataType | null>(null);
-  const [loading, setLoading] = useState(true);
-  const { t } = useTranslation(lng, "home");
-
-  const homeAction = async () => {
-    try {
-      setLoading(true);
-      const res: any = await fetch(process.env.NEXT_PUBLIC_API_URL + `/jsons/${lng}.json`);
-      const data = await res.json();
-      setData(data);
-    } catch (error: unknown) {
-      return {
-        error: getErrorMessage(error),
-      };
-    } finally {
-      setLoading(false);
-    }
-  };
+  const dispatch = useAppDispatch();
+  const { homeData } = useReduxHomeData();
 
   useEffect(() => {
-    homeAction();
+    dispatch(getHomeData(lng));
   }, [lng]);
 
-  if (loading) return <Loader loading={loading} />;
+  const showHideSwction = (name: string) => {
+    return homeData?.data?.menu?.find((r) => r.hash === name && r.show);
+  };
+
+  if (homeData.loading) return <Loader loading={homeData.loading} />;
   return (
     <main className="flex flex-col items-center px-4">
-      <Intro lng={lng} data={data} />
+      {showHideSwction("home") && <Intro lng={lng} data={homeData.data} />}
       <SectionDivider />
-      <About lng={lng} data={data} />
-      <Projects lng={lng} data={data} />
-      <Skills lng={lng} data={data} />
-      <Experience lng={lng} data={data} />
-      <OurTeam lng={lng} data={data} />
-      <ProjectRequest lng={lng} data={data} />
-      <Contact lng={lng} data={data} />
-      <Footer lng={lng} data={data} />
+      {showHideSwction("about") && <About lng={lng} data={homeData.data} />}
+      {showHideSwction("projects") && <Projects lng={lng} data={homeData.data} />}
+      {showHideSwction("skills") && <Skills lng={lng} data={homeData.data} />}
+      {showHideSwction("experience") && <Experience lng={lng} data={homeData.data} />}
+      {showHideSwction("team") && <OurTeam lng={lng} data={homeData.data} />}
+      {showHideSwction("projectRequest") && <ProjectRequest lng={lng} data={homeData.data} />}
+      {showHideSwction("contact") && <Contact lng={lng} data={homeData.data} />}
+      <Footer lng={lng} data={homeData.data} />
     </main>
   );
 }

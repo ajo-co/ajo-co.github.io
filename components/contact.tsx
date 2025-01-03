@@ -101,7 +101,7 @@ export default function Contact({ lng, data }: { lng: string; data: homeDataType
             </div>
             <div className="w-full mb-4">
               <textarea
-                className="h-52 w-full mt-3 rounded-lg borderBlack p-4 dark:bg-opacity-80 dark:focus:bg-opacity-100 transition-all dark:outline-none text-sm dark:bg-transparent dark:border-white dark:text-white"
+                className="h-52 w-full mt-3 rounded-lg borderBlack p-3 dark:bg-opacity-80 dark:focus:bg-opacity-100 transition-all dark:outline-none text-sm dark:bg-transparent dark:border-white dark:text-white"
                 name="message"
                 value={values.message}
                 placeholder={t("contact_message_hint")}

@@ -45,5 +45,19 @@
   "contact_email_valid": "ایمیل را بصورت درست وارد کنید",
   "contact_message_req": "پیام اجباری می باشد",
   "contact_message_min_valid": "حداقل تعداد کاراکتر پیام: 10",
-  "email_success_message": "ایمیل با موفقیت ارسال شد!"
+  "email_success_message": "ایمیل با موفقیت ارسال شد!",
+  "yes": "بله",
+  "no": "خیر",
+  "additional_description": "توضیحات تکمیلی",
+  "contact_name_req": "نام اجباری می باشد",
+  "phone_number_valid": "شماره موبایل نادرست می باشد",
+  "phone_number_req": "شماره موبایل اجباری می باشد",
+  "country_req": "کشور اجباری می باشد",
+  "province_req": "استان اجباری می باشد",
+  "city_req": "شهر اجباری می باشد",
+  "communication_way_req": "راه ارتباطی اجباری می باشد",
+  "project_category_req": "دسته بندی پروژه اجباری می باشد",
+  "project_package_req": "پکیج پروژه اجباری می باشد",
+  "additional_description_req": "توضیحات تکمیلی اجباری می باشد",
+  "project_package": "پکیج پروژه"
 }

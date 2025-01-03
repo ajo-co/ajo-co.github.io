@@ -1,11 +1,12 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import SectionHeading from "./section-heading";
 import { motion } from "framer-motion";
-import { useSectionInView } from "@/lib/hooks";
+import markdownToHtml, { useSectionInView } from "@/lib/hooks";
 import { useTranslation } from "@/app/i18n/client";
 import { homeDataType } from "@/lib/types";
+import { remark } from "remark";
 
 interface IProps {
   lng: string;
@@ -14,6 +15,15 @@ interface IProps {
 export default function About({ lng, data }: IProps) {
   const { ref } = useSectionInView("about");
   const { t } = useTranslation(lng, "home");
+
+  const [htmlContent, setHtmlContent] = useState("");
+  useEffect(() => {
+    const convertMarkdown = async () => {
+      const html = await markdownToHtml(data?.aboutText || "");
+      setHtmlContent(html);
+    };
+    convertMarkdown();
+  }, [data?.aboutText]);
 
   return (
     <motion.section
@@ -25,14 +35,7 @@ export default function About({ lng, data }: IProps) {
       id="about"
     >
       <SectionHeading>{t("about_us_title")}</SectionHeading>
-      <p className="mb-3">{data?.aboutText}</p>
-      {/* <h3 className="text-lg font-bold">{t("about_us_text_head")}</h3>
-      <p className="flex flex-col">
-        <span className="italic">{t("about_us_text_option_one")}</span>
-        <span className="italic">{t("about_us_text_option_two")}</span>
-        <span className="italic">{t("about_us_text_option_three")}</span>
-      </p>
-      <p>{t("about_us_text_final")}</p> */}
+      <div className="mb-3" dangerouslySetInnerHTML={{ __html: htmlContent }} />
     </motion.section>
   );
 }

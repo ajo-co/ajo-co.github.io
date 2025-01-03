@@ -1,6 +1,6 @@
 import { links } from "./data";
 
-export type SectionName = (typeof links)[number]["name"];
+// export type SectionName = (typeof links)[number]["name"];
 
 export interface homeDataType {
   logoUrl: string;
@@ -16,6 +16,7 @@ export interface homeDataType {
   phoneNumber: string;
   phoneNumber2: string;
   email: string;
+  menu: { name: string; hash: string; show: boolean }[];
   skills: {
     title: string;
     id: number;
@@ -42,21 +43,6 @@ export interface homeDataType {
     icon: string;
     date: string;
   }[];
-  form: {
-    enabelName: boolean;
-    enabelEmail: boolean;
-    enabelPhoneNumber: boolean;
-    enabelCountry: boolean;
-    enabelProvince: boolean;
-    enabelCity: boolean;
-    enabelCommunicationWay: boolean;
-    enabelProjectCategory: boolean;
-    enabelTitleRequest: boolean;
-    enabelAdditionalDescription: boolean;
-    enabelUpload: boolean;
-    communicationWayData: itemWhitTitle[];
-    projectCategory: itemWhitTitle[];
-  };
   projectFormDetail: {
     formConfig: {
       nameConfig: fieldType;
@@ -91,3 +77,36 @@ interface itemWhitTitle {
   id: number;
   title: string;
 }
+
+export type method = "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
+
+export type fetcherArgs<
+  METHOD extends method = "GET",
+  BODY = METHOD extends "GET" ? undefined : FormData | object | string,
+> = METHOD extends "GET"
+  ? {
+      body?: undefined;
+      url: string;
+      method?: METHOD;
+      headers?: Record<string, string>;
+      parameters?: string;
+      ignoreBody?: boolean;
+      multipartBody?: boolean;
+      lng: string;
+    }
+  : {
+      body: BODY;
+      url: string;
+      method?: METHOD;
+      headers?: Record<string, string>;
+      parameters?: string;
+      ignoreBody?: boolean;
+      multipartBody?: boolean;
+      lng: string;
+    };
+
+// export type appApiArgs = {
+//   route: keyof typeof APP_API_ROUTES;
+//   parameters?: string;
+//   headers?: Record<string, string>;
+// };

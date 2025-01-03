@@ -21,7 +21,7 @@ export default function Projects({ lng, data }: IProps) {
     <section ref={ref} id="projects" className="scroll-mt-28 mb-28">
       <SectionHeading>{t("project_title")}</SectionHeading>
       <div>
-        {data?.projects.map((project, index) => (
+        {data?.projects?.map((project, index) => (
           <React.Fragment key={index}>
             <Project {...project} logo={data?.logoUrl} />
           </React.Fragment>

@@ -1,9 +1,10 @@
 import { useActiveSectionContext } from "@/context/active-section-context";
 import { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
-import type { SectionName } from "./types";
+import { remark } from "remark";
+import html from "remark-html";
 
-export function useSectionInView(sectionName: SectionName, threshold = 0.75) {
+export function useSectionInView(sectionName: string, threshold = 0.75) {
   const { ref, inView } = useInView({
     threshold,
   });
@@ -18,4 +19,9 @@ export function useSectionInView(sectionName: SectionName, threshold = 0.75) {
   return {
     ref,
   };
+}
+
+export default async function markdownToHtml(markdown: string) {
+  const result = await remark().use(html).process(markdown);
+  return result.toString();
 }

@@ -36,7 +36,7 @@ export default function Skills({ lng, data }: IProps) {
     <section id="skills" ref={ref} className="mb-28 max-w-[53rem] scroll-mt-28 text-center sm:mb-40">
       <SectionHeading>{t("skill_title")}</SectionHeading>
       <ul className="flex flex-wrap justify-center gap-2 text-lg text-gray-800">
-        {data?.skills.map((skill, index) => (
+        {data?.skills?.map((skill, index) => (
           <motion.li
             className="bg-white borderBlack rounded-xl px-5 py-3 flex items-center gap-[6px] dark:bg-white/10 dark:text-white/80"
             dir="ltr"
