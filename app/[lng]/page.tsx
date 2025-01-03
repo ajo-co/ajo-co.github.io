@@ -28,22 +28,22 @@ export default function Home({ params: { lng } }: IProps) {
     dispatch(getHomeData(lng));
   }, [lng, dispatch]);
 
-  const showHideSwction = (name: string) => {
+  const showHideSection = (name: string) => {
     return homeData?.data?.menu?.find((r: any) => r.hash === name && r.show);
   };
 
   if (homeData.loading) return <Loader loading={homeData.loading} />;
   return (
     <main className="flex flex-col items-center px-4">
-      {showHideSwction("home") && <Intro lng={lng} data={homeData.data} />}
+      {showHideSection("home") && <Intro lng={lng} data={homeData.data} />}
       <SectionDivider />
-      {showHideSwction("about") && <About lng={lng} data={homeData.data} />}
-      {showHideSwction("projects") && <Projects lng={lng} data={homeData.data} />}
-      {showHideSwction("skills") && <Skills lng={lng} data={homeData.data} />}
-      {showHideSwction("experience") && <Experience lng={lng} data={homeData.data} />}
-      {showHideSwction("team") && <OurTeam lng={lng} data={homeData.data} />}
-      {showHideSwction("projectRequest") && <ProjectRequest lng={lng} data={homeData.data} />}
-      {showHideSwction("contact") && <Contact lng={lng} data={homeData.data} />}
+      {showHideSection("about") && <About lng={lng} data={homeData.data} />}
+      {showHideSection("projects") && <Projects lng={lng} data={homeData.data} />}
+      {showHideSection("skills") && <Skills lng={lng} data={homeData.data} />}
+      {showHideSection("experience") && <Experience lng={lng} data={homeData.data} />}
+      {showHideSection("team") && <OurTeam lng={lng} data={homeData.data} />}
+      {showHideSection("projectRequest") && <ProjectRequest lng={lng} data={homeData.data} />}
+      {showHideSection("contact") && <Contact lng={lng} data={homeData.data} />}
       <Footer lng={lng} data={homeData.data} />
     </main>
   );

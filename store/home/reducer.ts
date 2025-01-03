@@ -4,7 +4,7 @@ import { HomeReducerType } from "./type";
 
 const initHomeData: HomeReducerType = {
   homeData: {
-    data: [],
+    data: null,
     loading: false,
   },
 };
@@ -17,7 +17,7 @@ export const homeDataReducer = createReducer(initHomeData, (builder) => {
   });
   builder.addCase(getHomeData.rejected, (state, action) => {
     state.homeData = {
-      data: [],
+      data: null,
       loading: false,
     };
   });
