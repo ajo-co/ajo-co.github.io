@@ -26,7 +26,7 @@ export default function OurTeam({ lng, data }: IProps) {
       <SectionHeading>{t("team_title")}</SectionHeading>
       <div className="mt-12 flex items-start justify-center flex-wrap gap-4">
         {data?.teamMembers?.map((item, index) => (
-          <div className="">
+          <div className="" key={index}>
             <div className="rounded-full overflow-hidden ">
               <Image src={item.avatar} width={180} height={180} alt={item.title} />
             </div>

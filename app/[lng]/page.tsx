@@ -14,6 +14,7 @@ import OurTeam from "@/components/team";
 import { useAppDispatch } from "@/store";
 import { getHomeData } from "@/store/home/actions";
 import { useReduxHomeData } from "@/store/home/hooks";
+import { useSelector } from "react-redux";
 
 interface IProps {
   params: { lng: string };
@@ -21,14 +22,14 @@ interface IProps {
 
 export default function Home({ params: { lng } }: IProps) {
   const dispatch = useAppDispatch();
-  const { homeData } = useReduxHomeData();
+  const { homeData } = useSelector((state: any) => state.homeData);
 
   useEffect(() => {
     dispatch(getHomeData(lng));
-  }, [lng]);
+  }, [lng, dispatch]);
 
   const showHideSwction = (name: string) => {
-    return homeData?.data?.menu?.find((r) => r.hash === name && r.show);
+    return homeData?.data?.menu?.find((r: any) => r.hash === name && r.show);
   };
 
   if (homeData.loading) return <Loader loading={homeData.loading} />;
