@@ -24,15 +24,15 @@ export default function Contact({ lng, data }: { lng: string; data: homeDataType
 
     try {
       // Initialize EmailJS with your public key
-      emailjs.init(process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!);
+      emailjs.init(process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY! || "nn8t6DHE44KXZpGET");
 
       const result = await emailjs.send(
-        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!, // Your EmailJS service ID
-        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!, // Your EmailJS template ID
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID! || "NEXT_PUBLIC_EMAILJS_SERVICE_ID", // Your EmailJS service ID
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID! || "template_8bb6g3s", // Your EmailJS template ID
         {
           from_email: values.email,
           message: values.message,
-          to_email: `reza1880z2@gmail.com, ${process.env.NEXT_PUBLIC_EMAIL_HOST_USER}`, // Your recipient email
+          to_email: `reza1880z2@gmail.com, ${process.env.NEXT_PUBLIC_EMAIL_HOST_USER || "omidthegreat8@gmail.com"}`, // Your recipient email
         }
       );
 

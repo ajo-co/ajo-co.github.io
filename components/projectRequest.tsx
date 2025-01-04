@@ -30,16 +30,18 @@ export default function ProjectRequest({ lng, data }: { lng: string; data: homeD
   const [moduleInfoData, setModuleInfoData] = useState("");
   const { t } = useTranslation(lng, "home");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [featuresCost, setFeaturesCost] = useState(0);
 
   const renderRelatedQuestion2Price = (list: any[]) => {
     let price = 0;
     list?.map((item: any) => {
-      if (item.value) price += item.value;
+      if (item.value) price += item.yes;
     });
-    console.log(price);
-
-    return price;
+    setFeaturesCost(price);
+    // return price;
   };
+
+  console.log(featuresCost);
 
   const handleShowModuleInfo = (data: string) => {
     setOpenModuleInfoModal(true);
@@ -54,15 +56,13 @@ export default function ProjectRequest({ lng, data }: { lng: string; data: homeD
   const handleSubmit = async (values: any, callbak: () => void) => {
     setIsSubmitting(true);
 
-    console.log(values);
-
     try {
       // Initialize EmailJS with your public key
-      emailjs.init(process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!);
+      emailjs.init(process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY! || "nn8t6DHE44KXZpGET");
 
       const result = await emailjs.send(
-        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!, // Your EmailJS service ID
-        process.env.NEXT_PUBLIC_EMAILJS_PROJECT_REQUEST_TEMPLATE_ID!, // Your EmailJS template ID
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID! || "service_ys7lpwd", // Your EmailJS service ID
+        process.env.NEXT_PUBLIC_EMAILJS_PROJECT_REQUEST_TEMPLATE_ID! || "template_50y2yi3", // Your EmailJS template ID
         {
           email: values.email,
           fullName: values.fullName,
@@ -76,13 +76,10 @@ export default function ProjectRequest({ lng, data }: { lng: string; data: homeD
           projectType: values.projectType?.title,
           packageAnswer: values.packageAnswer,
           estimatedCost: `${
-            renderRelatedQuestion2Price(values.relatedQuestion2) + values.projectCategory?.cost ||
-            0 + values.packageAnswerCost ||
-            0 + values.package?.cost ||
-            0
+            featuresCost + values.projectCategory?.cost || 0 + values.packageAnswerCost || 0 + values.package?.cost || 0
           } ${lng === "en" ? "USD" : lng === "fa" ? "تومان" : ""}`,
           relatedQuestion2: values.relatedQuestion2?.filter((item: any) => item.value).map((item: any) => item.title),
-          to_email: `reza1880z2@gmail.com, ${process.env.NEXT_PUBLIC_EMAIL_HOST_USER}`, // Your recipient email
+          to_email: `reza1880z2@gmail.com, ${process.env.NEXT_PUBLIC_EMAIL_HOST_USER || "omidthegreat8@gmail.com"}`, // Your recipient email
         }
       );
 
@@ -147,7 +144,7 @@ export default function ProjectRequest({ lng, data }: { lng: string; data: homeD
             projectCategory: {
               title: "",
               value: null,
-              cost: null,
+              cost: NaN,
             },
             package: {
               title: "",
@@ -305,7 +302,7 @@ export default function ProjectRequest({ lng, data }: { lng: string; data: homeD
                           projectCategory: {
                             title: "",
                             value: null,
-                            cost: null,
+                            cost: NaN,
                           },
                         })
                       }
@@ -466,19 +463,23 @@ export default function ProjectRequest({ lng, data }: { lng: string; data: homeD
                             <Switch
                               className="bg-[#eee]"
                               checked={item.required ? true : item.value}
-                              onChange={(val) =>
+                              onChange={(val) => {
+                                const finalRes = values.relatedQuestion2?.map((item2: any) =>
+                                  item2?.id === item.id
+                                    ? {
+                                        ...item2,
+                                        value: val,
+                                      }
+                                    : item2
+                                );
+                                console.log(finalRes);
+
+                                renderRelatedQuestion2Price(finalRes);
                                 setValues({
                                   ...values,
-                                  relatedQuestion2: values.relatedQuestion2?.map((item2: any) =>
-                                    item2?.id === item.id
-                                      ? {
-                                          ...item2,
-                                          value: val,
-                                        }
-                                      : item2
-                                  ) as any,
-                                })
-                              }
+                                  relatedQuestion2: finalRes as any,
+                                });
+                              }}
                             />
                             <span>{t("yes")}</span>
                           </div>
@@ -507,10 +508,10 @@ export default function ProjectRequest({ lng, data }: { lng: string; data: homeD
                 </SubmitBtn>
                 <p className="dark:text-white w-full dark:text-left ltr:!text-right pt-3 text-base">
                   {t("estimated_cost_hint")}:{" "}
-                  {values.projectCategory?.cost ||
+                  {featuresCost + values.projectCategory?.cost ||
                     0 + values.packageAnswerCost ||
                     0 + values.package?.cost ||
-                    0 + renderRelatedQuestion2Price(values.relatedQuestion2)}{" "}
+                    0}{" "}
                   {lng === "en" ? "USD" : lng === "fa" ? "تومان" : ""}
                 </p>
               </div>

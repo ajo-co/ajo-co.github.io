@@ -26,7 +26,10 @@ export default function Contact({ lng, data }: { lng: string; data: homeDataType
       const res = await fetch(`/api/sendEmail`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...values, to: `reza1880z2@gmail.com, ${process.env.NEXT_PUBLIC_EMAIL_HOST_USER}` }),
+        body: JSON.stringify({
+          ...values,
+          to: `reza1880z2@gmail.com, ${process.env.NEXT_PUBLIC_EMAIL_HOST_USER || "omidthegreat8@gmail.com"}`,
+        }),
       });
       const data = await res.json();
       toast.success(t("email_success_message"));

@@ -17,7 +17,7 @@ export default function clientFetcher<Response = unknown, M extends method = "GE
         head.set(i, headers[i]);
       }
     }
-    const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
+    const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "https://safetest.ir";
     const concatedURl = `${BASE_URL}${url}`;
 
     (method === "GET"
