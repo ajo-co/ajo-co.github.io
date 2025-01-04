@@ -71,6 +71,11 @@ jobs:
           NEXT_PUBLIC_EMAIL_HOST_PASSWORD: ${{ secrets.NEXT_PUBLIC_EMAIL_HOST_PASSWORD }}
           NEXT_PUBLIC_EMAIL_PORT: ${{ secrets.NEXT_PUBLIC_EMAIL_PORT }}
           NEXT_PUBLIC_EMAIL_USE_TLS: ${{ secrets.NEXT_PUBLIC_EMAIL_USE_TLS }}
+          APP_DOMAIN: ${{ secrets.APP_DOMAIN }}
+          NEXT_PUBLIC_EMAILJS_PUBLIC_KEY: ${{ secrets.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY }}
+          NEXT_PUBLIC_EMAILJS_SERVICE_ID: ${{ secrets.NEXT_PUBLIC_EMAILJS_SERVICE_ID }}
+          NEXT_PUBLIC_EMAILJS_TEMPLATE_ID: ${{ secrets.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID }}
+          NEXT_PUBLIC_EMAILJS_PROJECT_REQUEST_TEMPLATE_ID: ${{ secrets.NEXT_PUBLIC_EMAILJS_PROJECT_REQUEST_TEMPLATE_ID }}
         run: ${{ steps.detect-package-manager.outputs.runner }} next build
 
       - name: Upload artifact
