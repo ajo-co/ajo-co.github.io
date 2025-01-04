@@ -39,7 +39,7 @@ export default function Home({ params: { lng } }: IProps) {
       <SectionDivider />
       {showHideSection("about") && <About lng={lng} data={homeData.data} />}
       {showHideSection("projects") && <Projects lng={lng} data={homeData.data} />}
-      {showHideSection("skills") && <Skills lng={lng} data={homeData.data} />}
+      {/* {showHideSection("skills") && <Skills lng={lng} data={homeData.data} />} */}
       {showHideSection("experience") && <Experience lng={lng} data={homeData.data} />}
       {showHideSection("team") && <OurTeam lng={lng} data={homeData.data} />}
       {showHideSection("projectRequest") && <ProjectRequest lng={lng} data={homeData.data} />}

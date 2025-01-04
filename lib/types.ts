@@ -16,6 +16,7 @@ export interface homeDataType {
   phoneNumber: string;
   phoneNumber2: string;
   email: string;
+  usd: number;
   menu: { name: string; hash: string; show: boolean }[];
   skills: {
     title: string;

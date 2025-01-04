@@ -32,7 +32,7 @@ export default function OurTeam({ lng, data }: IProps) {
             </div>
             <h3 className="font-peyda text-sm font-bold pt-3 pb-2 text-center">{item.fullName}</h3>
             <p className=" font-peyda text-sm text-center pb-1">{item.title}</p>
-            <p className=" font-peyda text-xs text-[#ccc] text-center">{item.level}</p>
+            <p className=" font-peyda text-xs text-[#5a5a5a] text-center">{item.level}</p>
           </div>
         ))}
       </div>

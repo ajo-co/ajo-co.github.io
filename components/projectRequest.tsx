@@ -18,6 +18,7 @@ import { ValidationFormRequestForm } from "@/lib/validations";
 import { homeDataType } from "@/lib/types";
 import emailjs from "@emailjs/browser";
 import ModuleInfo from "./moduleInfo";
+import clsx from "clsx";
 
 function formatText(text: string) {
   return text.replace(/-/g, "_").toLowerCase();
@@ -37,11 +38,16 @@ export default function ProjectRequest({ lng, data }: { lng: string; data: homeD
     list?.map((item: any) => {
       if (item.value) price += item.yes;
     });
+
     setFeaturesCost(price);
     // return price;
   };
 
-  console.log(featuresCost);
+  const convertToUsd = (price: number) => {
+    if (lng === "fa") return price;
+    const priceInUSD = price / (data?.usd as number);
+    return priceInUSD.toFixed(2);
+  };
 
   const handleShowModuleInfo = (data: string) => {
     setOpenModuleInfoModal(true);
@@ -75,9 +81,12 @@ export default function ProjectRequest({ lng, data }: { lng: string; data: homeD
           communicationWayData: values.communicationWayData?.label,
           projectType: values.projectType?.title,
           packageAnswer: values.packageAnswer,
-          estimatedCost: `${
-            featuresCost + values.projectCategory?.cost || 0 + values.packageAnswerCost || 0 + values.package?.cost || 0
-          } ${lng === "en" ? "USD" : lng === "fa" ? "تومان" : ""}`,
+          estimatedCost: `${convertToUsd(
+            featuresCost +
+              Number(values.projectCategory?.cost || 0) +
+              Number(values.packageAnswerCost || 0) +
+              Number(values.package?.cost || 0)
+          )} ${lng === "en" ? "USD" : lng === "fa" ? "تومان" : ""}`,
           relatedQuestion2: values.relatedQuestion2?.filter((item: any) => item.value).map((item: any) => item.title),
           to_email: `reza1880z2@gmail.com, ${process.env.NEXT_PUBLIC_EMAIL_HOST_USER || "omidthegreat8@gmail.com"}`, // Your recipient email
         }
@@ -456,7 +465,13 @@ export default function ProjectRequest({ lng, data }: { lng: string; data: homeD
                       return (
                         <div
                           key={item.id}
-                          className="flex items-center gap-2 bg-slate-50 dark:bg-slate-800 dark:text-white rounded-lg p-2 border-slate-200 border"
+                          className={clsx(
+                            "flex items-center gap-2 dark:text-white rounded-lg py-3 px-2 border-slate-200 border",
+                            // "bg-slate-50",
+                            item.value
+                              ? "dark:bg-blue-200 dark:text-blue-900 bg-blue-200 text-blue-900"
+                              : "dark:bg-slate-800"
+                          )}
                         >
                           <div className="w-24 flex items-center gap-1">
                             <span>{t("no")}</span>
@@ -485,9 +500,9 @@ export default function ProjectRequest({ lng, data }: { lng: string; data: homeD
                           </div>
                           <div className="flex-grow">
                             <p>{item.title}</p>
-                            <span className="font-medium">
+                            {/* <span className="font-medium">
                               ({item.yes} {lng === "en" ? "USD" : lng === "fa" ? "تومان" : ""})
-                            </span>
+                            </span> */}
                           </div>
                           <div>
                             <button type="button" onClick={() => handleShowModuleInfo(item?.description)}>
@@ -508,10 +523,12 @@ export default function ProjectRequest({ lng, data }: { lng: string; data: homeD
                 </SubmitBtn>
                 <p className="dark:text-white w-full dark:text-left ltr:!text-right pt-3 text-base">
                   {t("estimated_cost_hint")}:{" "}
-                  {featuresCost + values.projectCategory?.cost ||
-                    0 + values.packageAnswerCost ||
-                    0 + values.package?.cost ||
-                    0}{" "}
+                  {convertToUsd(
+                    featuresCost +
+                      Number(values.projectCategory?.cost || 0) +
+                      Number(values.packageAnswerCost || 0) +
+                      Number(values.package?.cost || 0)
+                  )}{" "}
                   {lng === "en" ? "USD" : lng === "fa" ? "تومان" : ""}
                 </p>
               </div>
