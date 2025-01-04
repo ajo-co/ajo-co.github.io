@@ -28,7 +28,13 @@ export default function OurTeam({ lng, data }: IProps) {
         {data?.teamMembers?.map((item, index) => (
           <div className="" key={index}>
             <div className="rounded-full overflow-hidden ">
-              <Image src={item.avatar} width={180} height={180} alt={item.title} />
+              <Image
+                src={item.avatar}
+                width={180}
+                height={180}
+                alt={`${item.fullName} ${item.title}`}
+                className="sm:w-24 lg:w-44 sm:h-24 lg:h-44"
+              />
             </div>
             <h3 className="font-peyda text-sm font-bold pt-3 pb-2 text-center">{item.fullName}</h3>
             <p className=" font-peyda text-sm text-center pb-1">{item.title}</p>

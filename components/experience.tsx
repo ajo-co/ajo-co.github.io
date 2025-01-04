@@ -42,7 +42,9 @@ export default function Experience({ lng, data }: IProps) {
               date={item.date}
               icon={item.icon}
               iconStyle={{
-                background: theme === "light" ? "white" : "rgba(255, 255, 255, 0.15)",
+                // background: theme === "light" ? "white" : "rgba(255, 255, 255, 0.15)",
+                background: `url(${data?.experienceDefaultImage})`,
+                backgroundSize: "cover",
                 fontSize: "1.5rem",
               }}
             >

@@ -337,7 +337,13 @@ export default function ProjectRequest({ lng, data }: { lng: string; data: homeD
                           cost: item.cost,
                         }))}
                         allowClear
-                        onChange={(e, r: any) =>
+                        onChange={(e, r: any) => {
+                          // @ts-ignore
+                          const relatedResult = data?.projectFormDetail?.formQuestions?.relatedQuestion2
+                            ?.filter((r: any) => r.show)
+                            ?.map((r: any) => ({ ...r, value: r.required }));
+
+                          renderRelatedQuestion2Price(relatedResult);
                           setValues({
                             ...values,
                             package: r,
@@ -348,14 +354,11 @@ export default function ProjectRequest({ lng, data }: { lng: string; data: homeD
                               switchButton: false,
                               answers: [],
                             },
-                            // @ts-ignore
-                            relatedQuestion2: data?.projectFormDetail?.formQuestions?.relatedQuestion2
-                              ?.filter((r: any) => r.show)
-                              ?.map((r: any) => ({ ...r, value: r.required })),
+                            relatedQuestion2: relatedResult,
                             packageAnswer: "",
                             packageAnswerCost: NaN,
-                          })
-                        }
+                          });
+                        }}
                         defaultValue={values.package?.value}
                         onClear={() =>
                           setValues({
@@ -408,9 +411,9 @@ export default function ProjectRequest({ lng, data }: { lng: string; data: homeD
                             // required: false,
                           }))}
                           allowClear
-                          value={values.projectType.id}
+                          value={values.projectType?.id}
                           onChange={(e, r: any) =>
-                            setValues({ ...values, projectType: r.obj, packageAnswer: "", packageAnswerCost: NaN })
+                            setValues({ ...values, projectType: r?.obj, packageAnswer: "", packageAnswerCost: NaN })
                           }
                           onClear={() =>
                             setValues({
@@ -521,7 +524,7 @@ export default function ProjectRequest({ lng, data }: { lng: string; data: homeD
                 <SubmitBtn className="mt-4 mr-auto" loading={isSubmitting} onClick={handleSubmit}>
                   {t("send_btn")}
                 </SubmitBtn>
-                <p className="dark:text-white w-full dark:text-left ltr:!text-right pt-3 text-base">
+                <p className="dark:text-white w-full rtl:text-left ltr:!text-right pt-3 text-base">
                   {t("estimated_cost_hint")}:{" "}
                   {convertToUsd(
                     featuresCost +
