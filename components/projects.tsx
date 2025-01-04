@@ -23,7 +23,7 @@ export default function Projects({ lng, data }: IProps) {
       <div>
         {data?.projects?.map((project, index) => (
           <React.Fragment key={index}>
-            <Project {...project} logo={data?.logoUrl} />
+            <Project {...project} logo={data?.projectDefaultImage} />
           </React.Fragment>
         ))}
       </div>

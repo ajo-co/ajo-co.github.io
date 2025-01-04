@@ -3,6 +3,8 @@ import { links } from "./data";
 // export type SectionName = (typeof links)[number]["name"];
 
 export interface homeDataType {
+  projectDefaultImage: string;
+  experienceDefaultImage: string;
   logoUrl: string;
   title: string;
   subTitle: string;
