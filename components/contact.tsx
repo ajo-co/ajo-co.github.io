@@ -13,6 +13,7 @@ import { ErrorMessage, Formik } from "formik";
 import { ValidationContactForm } from "@/lib/validations";
 import TextInput from "./textInput";
 import toast from "react-hot-toast";
+import TextArea from "antd/es/input/TextArea";
 
 export default function Contact({ lng, data }: { lng: string; data: homeDataType | null }) {
   const { ref } = useSectionInView("contact");
@@ -100,9 +101,10 @@ export default function Contact({ lng, data }: { lng: string; data: homeDataType
               )}
             </div>
             <div className="w-full mb-4">
-              <textarea
-                className="h-52 w-full mt-3 rounded-lg borderBlack p-3 dark:bg-opacity-80 dark:focus:bg-opacity-100 transition-all dark:outline-none text-sm dark:bg-transparent dark:border-white dark:text-white"
+              <TextArea
+                className="h-52 w-full mt-3 rounded-lg borderBlack p-3 dark:bg-opacity-80 dark:focus:bg-opacity-100 transition-all dark:outline-none text-sm font-normal dark:bg-transparent dark:border-white dark:text-white dark:placeholder:text-[#ccc]"
                 name="message"
+                cols={10}
                 value={values.message}
                 placeholder={t("contact_message_hint")}
                 maxLength={1000}

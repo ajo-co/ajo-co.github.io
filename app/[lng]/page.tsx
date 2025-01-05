@@ -34,7 +34,7 @@ export default function Home({ params: { lng } }: IProps) {
 
   if (homeData.loading) return <Loader loading={homeData.loading} />;
   return (
-    <main className="flex flex-col items-center px-4">
+    <main className="flex flex-col items-center px-4 pt-20">
       {showHideSection("home") && <Intro lng={lng} data={homeData.data} />}
       <SectionDivider />
       {showHideSection("about") && <About lng={lng} data={homeData.data} />}
