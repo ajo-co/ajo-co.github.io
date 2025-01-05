@@ -19,6 +19,7 @@ import { homeDataType } from "@/lib/types";
 import emailjs from "@emailjs/browser";
 import ModuleInfo from "./moduleInfo";
 import clsx from "clsx";
+import { convertToMillionToman } from "@/lib/helper";
 
 function formatText(text: string) {
   return text.replace(/-/g, "_").toLowerCase();
@@ -44,7 +45,7 @@ export default function ProjectRequest({ lng, data }: { lng: string; data: homeD
   };
 
   const convertToUsd = (price: number) => {
-    if (lng === "fa") return price;
+    if (lng === "fa") return convertToMillionToman(price);
     const priceInUSD = price / (data?.usd as number);
     return priceInUSD.toFixed(2);
   };
@@ -86,7 +87,7 @@ export default function ProjectRequest({ lng, data }: { lng: string; data: homeD
               Number(values.projectCategory?.cost || 0) +
               Number(values.packageAnswerCost || 0) +
               Number(values.package?.cost || 0)
-          )} ${lng === "en" ? "USD" : lng === "fa" ? "تومان" : ""}`,
+          )} ${lng === "en" ? "USD" : lng === "fa" ? "میلیون تومان" : ""}`,
           relatedQuestion2: values.relatedQuestion2?.filter((item: any) => item.value).map((item: any) => item.title),
           to_email: `reza1880z2@gmail.com, ${process.env.NEXT_PUBLIC_EMAIL_HOST_USER || "omidthegreat8@gmail.com"}`, // Your recipient email
         }
@@ -504,7 +505,7 @@ export default function ProjectRequest({ lng, data }: { lng: string; data: homeD
                           <div className="flex-grow">
                             <p>{item.title}</p>
                             {/* <span className="font-medium">
-                              ({item.yes} {lng === "en" ? "USD" : lng === "fa" ? "تومان" : ""})
+                              ({item.yes} {lng === "en" ? "USD" : lng === "fa" ? "میلیون تومان" : ""})
                             </span> */}
                           </div>
                           <div>
@@ -532,7 +533,7 @@ export default function ProjectRequest({ lng, data }: { lng: string; data: homeD
                       Number(values.packageAnswerCost || 0) +
                       Number(values.package?.cost || 0)
                   )}{" "}
-                  {lng === "en" ? "USD" : lng === "fa" ? "تومان" : ""}
+                  {lng === "en" ? "USD" : lng === "fa" ? "میلیون تومان" : ""}
                 </p>
               </div>
             </form>
