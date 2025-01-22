@@ -37,6 +37,7 @@ export interface homeDataType {
     description: string;
     tags: string[];
     imageUrl: string;
+    siteUrl: string;
     videoUrl: string;
   }[];
   experiences: {

@@ -8,6 +8,7 @@ import { homeDataType } from "@/lib/types";
 import clsx from "clsx";
 import { FaPlay } from "react-icons/fa";
 import { Modal } from "antd";
+import GradientButton from "./gradientBtn";
 
 // type ProjectProps = (typeof projectsData)[number];
 
@@ -17,6 +18,7 @@ export default function Project({
   tags,
   imageUrl,
   logo,
+  siteUrl,
   videoUrl,
 }: homeDataType["projects"][0] & { logo: string }) {
   const [showVideoModal, setShowVideoModal] = useState(false);
@@ -27,7 +29,7 @@ export default function Project({
   });
   const scaleProgess = useTransform(scrollYProgress, [0, 1], [0.8, 1]);
   const opacityProgess = useTransform(scrollYProgress, [0, 1], [0.6, 1]);
-
+  console.log("flqefqe", siteUrl)
   return (
     <motion.div
       ref={ref}
@@ -80,22 +82,33 @@ export default function Project({
           ) : (
             <></>
           )}
-          <Image
-            src={imageUrl || logo}
-            alt={title}
-            quality={95}
-            width={310}
-            height={310}
-            className="
-        "
-          />
+          <div className="bg-white">
+            <Image
+              src={imageUrl || logo}
+              alt={title}
+              quality={95}
+              width={310}
+              height={310}
+              className="bg-white-500"
+            />
+          </div>
         </div>
       </section>
 
       <Modal open={showVideoModal} width={1024} footer={false} onCancel={() => setShowVideoModal(false)} title={title}>
         <video width="100%" controls>
           <source src={videoUrl} type="video/mp4" />
+
         </video>
+        {siteUrl && <a
+          className="m-5 hover:text-gray-950 flex items-center gap-2 rounded-full"
+          href={siteUrl}
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          <GradientButton >Go to Link</GradientButton>
+        </a>
+        }
       </Modal>
     </motion.div>
   );
