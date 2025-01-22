@@ -18,8 +18,8 @@ import ClientProvider from "@/providers/clientProvider";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Fedaar",
-  description: "Fedaar Corp",
+  title: "Fidaar",
+  description: "Fidaar Corp",
 };
 
 export async function generateStaticParams() {
