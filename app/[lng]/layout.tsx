@@ -1,26 +1,10 @@
-import Header from "@/components/header";
-import "../globals.css";
-import { Inter } from "next/font/google";
 import ActiveSectionContextProvider from "@/context/active-section-context";
-// import Footer from "@/components/footer";
-import ThemeSwitch from "@/components/theme-switch";
 import ThemeContextProvider from "@/context/theme-context";
-import { Toaster } from "react-hot-toast";
-import { dir } from "i18next";
-import LanguageSwitch from "@/components/language-switch";
 import { languages } from "../i18n/settings";
 import { Suspense } from "react";
 import Loader from "@/components/loader";
-import store from "@/store";
-import { Provider as ReduxProvider } from "react-redux";
 import ClientProvider from "@/providers/clientProvider";
-
-const inter = Inter({ subsets: ["latin"] });
-
-export const metadata = {
-  title: "Fidaar",
-  description: "Fidaar Corp",
-};
+import "../globals.css";
 
 export async function generateStaticParams() {
   return languages.map((lng) => ({ lng }));
