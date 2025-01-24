@@ -7,9 +7,9 @@ import { cookieName } from "./i18n/settings";
 export default function Page() {
   const cookies = getCookie(cookieName);
 
-  console.log(cookies);
+  // console.log(cookies);
   useEffect(() => {
-    redirect(`/${cookies ? cookies : "en"}`);
+    // redirect(`/${cookies ? cookies : "en"}`);
   }, []);
 
   return <div></div>;

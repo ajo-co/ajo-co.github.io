@@ -59,5 +59,6 @@
   "project_category_req": "دسته بندی پروژه اجباری می باشد",
   "project_package_req": "پکیج پروژه اجباری می باشد",
   "additional_description_req": "توضیحات تکمیلی اجباری می باشد",
-  "project_package": "پکیج پروژه"
+  "project_package": "پکیج پروژه",
+  "go_to_link": "برو به لینک"
 }

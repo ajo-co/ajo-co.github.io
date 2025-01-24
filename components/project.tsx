@@ -9,6 +9,7 @@ import clsx from "clsx";
 import { FaPlay } from "react-icons/fa";
 import { Modal } from "antd";
 import GradientButton from "./gradientBtn";
+import { useTranslation } from "@/app/i18n/client";
 
 // type ProjectProps = (typeof projectsData)[number];
 
@@ -20,8 +21,11 @@ export default function Project({
   logo,
   siteUrl,
   videoUrl,
-}: homeDataType["projects"][0] & { logo: string }) {
+  lng,
+}: homeDataType["projects"][0] & { logo: string; lng: string }) {
   const [showVideoModal, setShowVideoModal] = useState(false);
+  const { t } = useTranslation(lng, "home");
+
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -29,7 +33,7 @@ export default function Project({
   });
   const scaleProgess = useTransform(scrollYProgress, [0, 1], [0.8, 1]);
   const opacityProgess = useTransform(scrollYProgress, [0, 1], [0.6, 1]);
-  console.log("flqefqe", siteUrl)
+  console.log("flqefqe", siteUrl);
   return (
     <motion.div
       ref={ref}
@@ -39,7 +43,7 @@ export default function Project({
       }}
       className="group mb-3 sm:mb-8 last:mb-0"
     >
-      <section className="bg-gray-100 flex max-w-[42rem] border border-black/5 rounded-lg overflow-hidden sm:pr-8 relative sm:h-[20rem] hover:bg-gray-200 transition sm:group-even:pl-8 dark:text-white dark:bg-white/10 dark:hover:bg-white/20">
+      <section className="bg-gray-100 flex flex-col-reverse max-w-[42rem] border border-black/5 rounded-lg overflow-hidden sm:pr-8 relative sm:h-[20rem] hover:bg-gray-200 transition sm:group-even:pl-8 dark:text-white dark:bg-white/10 dark:hover:bg-white/20">
         <div className="pt-4 pb-4 px-5 sm:pl-10 sm:pr-2 sm:pt-4 sm:max-w-[50%] flex flex-col h-full sm:group-even:ml-[18rem] sm:rtl:group-odd:mr-[18rem]">
           <h3 className="text-2xl font-semibold">{title}</h3>
           <p className="mt-2 leading-relaxed text-gray-700 dark:text-white/70">
@@ -57,7 +61,7 @@ export default function Project({
           </ul>
         </div>
         <div
-          className="absolute hidden sm:block top-8 -right-8 w-[310px] h-[310px] rounded-t-3xl shadow-2xl
+          className="relative sm:absolute sm:top-8 sm:-right-8 sm:w-[310px] h-[310px] sm:rounded-t-3xl shadow-2xl
         transition 
         group-hover:scale-[1.04]
         group-hover:-translate-x-3
@@ -71,7 +75,7 @@ export default function Project({
           {videoUrl ? (
             <button
               className={clsx(
-                "hidden absolute right-0 left-0 top-0 bottom-0 m-auto group-hover:block",
+                "block sm:hidden absolute right-0 left-0 top-0 bottom-0 m-auto group-hover:block",
                 "h-16 w-16 bg-black bg-opacity-50 rounded-full transition-all",
                 "flex items-center justify-center"
               )}
@@ -89,7 +93,7 @@ export default function Project({
               quality={95}
               width={310}
               height={310}
-              className="bg-white-500"
+              className="bg-white-500 w-full"
             />
           </div>
         </div>
@@ -98,17 +102,17 @@ export default function Project({
       <Modal open={showVideoModal} width={1024} footer={false} onCancel={() => setShowVideoModal(false)} title={title}>
         <video width="100%" controls>
           <source src={videoUrl} type="video/mp4" />
-
         </video>
-        {siteUrl && <a
-          className="m-5 hover:text-gray-950 flex items-center gap-2 rounded-full"
-          href={siteUrl}
-          rel="noopener noreferrer"
-          target="_blank"
-        >
-          <GradientButton >Go to Link</GradientButton>
-        </a>
-        }
+        {siteUrl && (
+          <a
+            className="m-5 hover:text-gray-950 flex items-center gap-2 rounded-full"
+            href={siteUrl}
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <GradientButton>{t("GoToLink")}</GradientButton>
+          </a>
+        )}
       </Modal>
     </motion.div>
   );

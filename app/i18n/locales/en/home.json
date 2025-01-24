@@ -59,5 +59,6 @@
   "project_category_req": "Project category is required",
   "project_package_req": "Project package is required",
   "additional_description_req": "Additional description is required",
-  "project_package": "Project package"
+  "project_package": "Project package",
+  "go_to_link": "Go to link"
 }
